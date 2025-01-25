@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  Color get color => throw _privateConstructorUsedError;
+  Color? get color => throw _privateConstructorUsedError;
 
   /// Create a copy of Item
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +31,7 @@ abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
-  $Res call({String id, String title, Color color});
+  $Res call({String id, String title, Color? color});
 }
 
 /// @nodoc
@@ -51,7 +51,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? color = null,
+    Object? color = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -62,10 +62,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      color: null == color
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color,
+              as Color?,
     ) as $Val);
   }
 }
@@ -77,7 +77,7 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
       __$$ItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, Color color});
+  $Res call({String id, String title, Color? color});
 }
 
 /// @nodoc
@@ -94,7 +94,7 @@ class __$$ItemImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? color = null,
+    Object? color = freezed,
   }) {
     return _then(_$ItemImpl(
       id: null == id
@@ -105,10 +105,10 @@ class __$$ItemImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      color: null == color
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color,
+              as Color?,
     ));
   }
 }
@@ -116,15 +116,14 @@ class __$$ItemImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ItemImpl implements _Item {
-  const _$ItemImpl(
-      {required this.id, required this.title, required this.color});
+  const _$ItemImpl({required this.id, required this.title, this.color});
 
   @override
   final String id;
   @override
   final String title;
   @override
-  final Color color;
+  final Color? color;
 
   @override
   String toString() {
@@ -157,14 +156,14 @@ abstract class _Item implements Item {
   const factory _Item(
       {required final String id,
       required final String title,
-      required final Color color}) = _$ItemImpl;
+      final Color? color}) = _$ItemImpl;
 
   @override
   String get id;
   @override
   String get title;
   @override
-  Color get color;
+  Color? get color;
 
   /// Create a copy of Item
   /// with the given fields replaced by the non-null parameter values.

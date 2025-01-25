@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roulette/providers.dart';
@@ -49,24 +50,37 @@ class RouletteItem extends ConsumerWidget {
     final item = ref.watch(itemProvider(id));
     final offsets = ref.watch(itemOffsetsProvider(id));
 
-    return Stack(
-      children: offsets.map((offset) {
-        return Positioned(
-          top: offset * itemHeight + height * 0.5,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Text(
-              item.title,
-              style: TextStyle(
-                color: item.color,
-                fontSize: itemHeight * 0.8,
-                fontWeight: FontWeight.bold,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: offsets.map((offset) {
+            return Positioned.fromRect(
+              rect: Rect.fromLTWH(
+                0,
+                offset * itemHeight + height * 0.5,
+                constraints.maxWidth,
+                itemHeight,
               ),
-            ),
-          ),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  // color: Colors.grey,
+                  child: AutoSizeText(
+                    item.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: ref.watch(itemColorProvider(id)),
+                      fontSize: itemHeight * 0.8,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
         );
-      }).toList(),
+      },
     );
   }
 }

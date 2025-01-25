@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roulette/items_controller.dart';
 import 'package:roulette/models.dart';
@@ -19,6 +20,13 @@ final itemProvider = Provider.family<Item, String>((ref, id) {
 final itemIndexProvider = Provider.family<int, String>((ref, id) {
   final items = ref.watch(itemsProvider);
   return items.indexWhere((item) => item.id == id);
+});
+
+final itemColorProvider = Provider.family<Color, String>((ref, id) {
+  final item = ref.watch(itemProvider(id));
+  final itemIndex = ref.watch(itemIndexProvider(id));
+  return item.color ??
+      (itemIndex % 2 == 0 ? Colors.blue : Colors.purple.shade100);
 });
 
 final itemOffsetsProvider = Provider.family<List<double>, String>((ref, id) {

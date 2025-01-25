@@ -11,39 +11,33 @@ final items = [
   Item(
     id: Uuid().v4(),
     title: "-73 kg",
-    color: Color(0xFF299FE4),
   ),
   Item(
     id: Uuid().v4(),
     title: "-57 kg",
-    color: Color(0xFFDDB6FF),
   ),
   Item(
     id: Uuid().v4(),
     title: "-90 kg",
-    color: Color(0xFF299FE4),
   ),
   Item(
     id: Uuid().v4(),
     title: "+70 kg",
-    color: Color(0xFFDDB6FF),
   ),
   Item(
     id: Uuid().v4(),
     title: "+90 kg",
-    color: Color(0xFF299FE4),
   ),
   Item(
     id: Uuid().v4(),
     title: "-70 kg",
-    color: Color(0xFFDDB6FF),
   ),
 ];
 
 class ItemsController extends StateNotifier<List<Item>> {
   ItemsController() : super(items);
 
-  void addItem(String title, Color color) {
+  void addItem(String title, Color? color) {
     state = [
       ...state,
       Item(
@@ -52,6 +46,15 @@ class ItemsController extends StateNotifier<List<Item>> {
         color: color,
       ),
     ];
+  }
+
+  void editItem(Item editedItem) {
+    state = state.map((item) {
+      if (item.id == editedItem.id) {
+        return editedItem;
+      }
+      return item;
+    }).toList();
   }
 
   void removeItem(String id) {
