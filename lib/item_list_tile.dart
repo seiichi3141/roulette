@@ -19,6 +19,7 @@ class ItemListTile extends ConsumerWidget {
 
     return ListTile(
       title: Text(item.title),
+      dense: true,
       onTap: () async {
         final ret = await showDialog<Item?>(
           context: context,

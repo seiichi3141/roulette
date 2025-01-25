@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:roulette/providers.dart';
 
 part 'roulette_controller.freezed.dart';
 
@@ -20,12 +21,13 @@ class RouletteState with _$RouletteState {
 
 final rouletteControllerProvider =
     StateNotifierProvider<RouletteController, RouletteState>(
-        (ref) => RouletteController());
+        (ref) => RouletteController(ref: ref));
 
 class RouletteController extends StateNotifier<RouletteState> {
-  RouletteController()
+  RouletteController({required this.ref})
       : super(RouletteState.stop(title: "GOLDEN SCORE DECISION CONTEST"));
 
+  Ref ref;
   Timer? timer;
 
   @override
@@ -44,20 +46,23 @@ class RouletteController extends StateNotifier<RouletteState> {
       value: state.value,
     );
 
+    final itemLength = ref.read(itemLengthProvider);
+
     // 12秒間ルーレットを回転する
     final seconds = 12;
+    final offset = 1.0 - 1.0 / itemLength * 2;
 
     final valueListenable = ValueNotifier<double>(0);
     final animation = TweenSequence([
       // 1秒間のアニメーション
       TweenSequenceItem(
-        tween: Tween(begin: 1.0, end: 0.5).chain(
+        tween: Tween(begin: 1.0, end: offset).chain(
           CurveTween(curve: Curves.easeOutCubic),
         ),
         weight: 0.5,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: 0.5, end: 1.0).chain(
+        tween: Tween(begin: offset, end: 1.0).chain(
           CurveTween(curve: Curves.easeInCubic),
         ),
         weight: 0.5,

@@ -7,32 +7,69 @@ import 'package:roulette/models.dart';
 import 'package:roulette/providers.dart';
 import 'package:roulette/roulette_controller.dart';
 
-class ItemList extends ConsumerWidget {
+class ItemList extends ConsumerStatefulWidget {
   const ItemList({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ItemListState createState() => ItemListState();
+}
+
+class ItemListState extends ConsumerState<ItemList>
+    with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final items = ref.watch(itemsProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        TabBar(
+          controller: _tabController,
+          labelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          tabs: const [
+            Tab(text: 'List'),
+            Tab(text: 'Text'),
+          ],
+        ),
         Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return Column(
-                children: [
-                  ItemListTile(id: item.id),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: const Divider(),
-                  ),
-                ],
-              );
-            },
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  return Column(
+                    children: [
+                      ItemListTile(id: item.id),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: const Divider(
+                          height: 0,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              ItemsTextView(
+                text: items.map((item) => item.title).join('\n'),
+              ),
+            ],
           ),
         ),
         Padding(
@@ -158,6 +195,44 @@ class RouletteButton extends ConsumerWidget {
           ref.read(rouletteControllerProvider.notifier).start();
         }
       },
+    );
+  }
+}
+
+class ItemsTextView extends ConsumerStatefulWidget {
+  const ItemsTextView({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  ItemsTextViewState createState() => ItemsTextViewState();
+}
+
+class ItemsTextViewState extends ConsumerState<ItemsTextView> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.text);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: TextField(
+        controller: _controller,
+        expands: true,
+        minLines: null,
+        maxLines: null,
+        onChanged: (text) {
+          ref.read(itemsControllerProvider.notifier).setText(text);
+        },
+      ),
     );
   }
 }

@@ -60,4 +60,15 @@ class ItemsController extends StateNotifier<List<Item>> {
   void removeItem(String id) {
     state = state.where((item) => item.id != id).toList();
   }
+
+  void setText(String text) {
+    final items =
+        text.split("\n").where((element) => element.isNotEmpty).map((e) {
+      return Item(
+        id: Uuid().v4(),
+        title: e,
+      );
+    }).toList();
+    state = items;
+  }
 }
