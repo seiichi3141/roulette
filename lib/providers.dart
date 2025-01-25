@@ -40,3 +40,19 @@ final itemOffsetsProvider = Provider.family<List<double>, String>((ref, id) {
     (currentPosition * itemLength) + index - 0.5
   ];
 });
+
+final isHitItemProvider = Provider.family<bool, String>((ref, id) {
+  final hitIndex = ref.watch(rouletteControllerProvider.select((value) {
+    if (value is RouletteStateHit) {
+      return value.hitIndex;
+    }
+    return -1;
+  }));
+  final itemIndex = ref.watch(itemIndexProvider(id));
+  return hitIndex == itemIndex;
+});
+
+final isResultProvider = Provider<bool>((ref) {
+  final rouletteState = ref.watch(rouletteControllerProvider);
+  return rouletteState is RouletteStateHit;
+});

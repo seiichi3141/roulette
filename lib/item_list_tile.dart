@@ -16,10 +16,15 @@ class ItemListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final item = ref.watch(itemProvider(id));
+    final isHit = ref.watch(isHitItemProvider(id));
 
     return ListTile(
       title: Text(item.title),
       dense: true,
+      selected: isHit,
+      selectedTileColor: Theme.of(context).colorScheme.primary.withValues(
+            alpha: 0.5,
+          ),
       onTap: () async {
         final ret = await showDialog<Item?>(
           context: context,

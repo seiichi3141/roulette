@@ -22,18 +22,21 @@ mixin _$RouletteState {
   TResult when<TResult extends Object?>({
     required TResult Function(String title, double value) stop,
     required TResult Function(String title, double value) running,
+    required TResult Function(String title, double value, int hitIndex) hit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title, double value)? stop,
     TResult? Function(String title, double value)? running,
+    TResult? Function(String title, double value, int hitIndex)? hit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title, double value)? stop,
     TResult Function(String title, double value)? running,
+    TResult Function(String title, double value, int hitIndex)? hit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -41,18 +44,21 @@ mixin _$RouletteState {
   TResult map<TResult extends Object?>({
     required TResult Function(RouletteStateStop value) stop,
     required TResult Function(RouletteStateRunning value) running,
+    required TResult Function(RouletteStateHit value) hit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RouletteStateStop value)? stop,
     TResult? Function(RouletteStateRunning value)? running,
+    TResult? Function(RouletteStateHit value)? hit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RouletteStateStop value)? stop,
     TResult Function(RouletteStateRunning value)? running,
+    TResult Function(RouletteStateHit value)? hit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -186,6 +192,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult when<TResult extends Object?>({
     required TResult Function(String title, double value) stop,
     required TResult Function(String title, double value) running,
+    required TResult Function(String title, double value, int hitIndex) hit,
   }) {
     return stop(title, value);
   }
@@ -195,6 +202,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title, double value)? stop,
     TResult? Function(String title, double value)? running,
+    TResult? Function(String title, double value, int hitIndex)? hit,
   }) {
     return stop?.call(title, value);
   }
@@ -204,6 +212,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title, double value)? stop,
     TResult Function(String title, double value)? running,
+    TResult Function(String title, double value, int hitIndex)? hit,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -217,6 +226,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult map<TResult extends Object?>({
     required TResult Function(RouletteStateStop value) stop,
     required TResult Function(RouletteStateRunning value) running,
+    required TResult Function(RouletteStateHit value) hit,
   }) {
     return stop(this);
   }
@@ -226,6 +236,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RouletteStateStop value)? stop,
     TResult? Function(RouletteStateRunning value)? running,
+    TResult? Function(RouletteStateHit value)? hit,
   }) {
     return stop?.call(this);
   }
@@ -235,6 +246,7 @@ class _$RouletteStateStopImpl implements RouletteStateStop {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RouletteStateStop value)? stop,
     TResult Function(RouletteStateRunning value)? running,
+    TResult Function(RouletteStateHit value)? hit,
     required TResult orElse(),
   }) {
     if (stop != null) {
@@ -344,6 +356,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult when<TResult extends Object?>({
     required TResult Function(String title, double value) stop,
     required TResult Function(String title, double value) running,
+    required TResult Function(String title, double value, int hitIndex) hit,
   }) {
     return running(title, value);
   }
@@ -353,6 +366,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String title, double value)? stop,
     TResult? Function(String title, double value)? running,
+    TResult? Function(String title, double value, int hitIndex)? hit,
   }) {
     return running?.call(title, value);
   }
@@ -362,6 +376,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String title, double value)? stop,
     TResult Function(String title, double value)? running,
+    TResult Function(String title, double value, int hitIndex)? hit,
     required TResult orElse(),
   }) {
     if (running != null) {
@@ -375,6 +390,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult map<TResult extends Object?>({
     required TResult Function(RouletteStateStop value) stop,
     required TResult Function(RouletteStateRunning value) running,
+    required TResult Function(RouletteStateHit value) hit,
   }) {
     return running(this);
   }
@@ -384,6 +400,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(RouletteStateStop value)? stop,
     TResult? Function(RouletteStateRunning value)? running,
+    TResult? Function(RouletteStateHit value)? hit,
   }) {
     return running?.call(this);
   }
@@ -393,6 +410,7 @@ class _$RouletteStateRunningImpl implements RouletteStateRunning {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(RouletteStateStop value)? stop,
     TResult Function(RouletteStateRunning value)? running,
+    TResult Function(RouletteStateHit value)? hit,
     required TResult orElse(),
   }) {
     if (running != null) {
@@ -418,4 +436,179 @@ abstract class RouletteStateRunning implements RouletteState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RouletteStateRunningImplCopyWith<_$RouletteStateRunningImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RouletteStateHitImplCopyWith<$Res>
+    implements $RouletteStateCopyWith<$Res> {
+  factory _$$RouletteStateHitImplCopyWith(_$RouletteStateHitImpl value,
+          $Res Function(_$RouletteStateHitImpl) then) =
+      __$$RouletteStateHitImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String title, double value, int hitIndex});
+}
+
+/// @nodoc
+class __$$RouletteStateHitImplCopyWithImpl<$Res>
+    extends _$RouletteStateCopyWithImpl<$Res, _$RouletteStateHitImpl>
+    implements _$$RouletteStateHitImplCopyWith<$Res> {
+  __$$RouletteStateHitImplCopyWithImpl(_$RouletteStateHitImpl _value,
+      $Res Function(_$RouletteStateHitImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RouletteState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? value = null,
+    Object? hitIndex = null,
+  }) {
+    return _then(_$RouletteStateHitImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as double,
+      hitIndex: null == hitIndex
+          ? _value.hitIndex
+          : hitIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RouletteStateHitImpl implements RouletteStateHit {
+  const _$RouletteStateHitImpl(
+      {required this.title, required this.value, required this.hitIndex});
+
+  @override
+  final String title;
+  @override
+  final double value;
+  @override
+  final int hitIndex;
+
+  @override
+  String toString() {
+    return 'RouletteState.hit(title: $title, value: $value, hitIndex: $hitIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RouletteStateHitImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.hitIndex, hitIndex) ||
+                other.hitIndex == hitIndex));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, title, value, hitIndex);
+
+  /// Create a copy of RouletteState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RouletteStateHitImplCopyWith<_$RouletteStateHitImpl> get copyWith =>
+      __$$RouletteStateHitImplCopyWithImpl<_$RouletteStateHitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String title, double value) stop,
+    required TResult Function(String title, double value) running,
+    required TResult Function(String title, double value, int hitIndex) hit,
+  }) {
+    return hit(title, value, hitIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String title, double value)? stop,
+    TResult? Function(String title, double value)? running,
+    TResult? Function(String title, double value, int hitIndex)? hit,
+  }) {
+    return hit?.call(title, value, hitIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String title, double value)? stop,
+    TResult Function(String title, double value)? running,
+    TResult Function(String title, double value, int hitIndex)? hit,
+    required TResult orElse(),
+  }) {
+    if (hit != null) {
+      return hit(title, value, hitIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RouletteStateStop value) stop,
+    required TResult Function(RouletteStateRunning value) running,
+    required TResult Function(RouletteStateHit value) hit,
+  }) {
+    return hit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RouletteStateStop value)? stop,
+    TResult? Function(RouletteStateRunning value)? running,
+    TResult? Function(RouletteStateHit value)? hit,
+  }) {
+    return hit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RouletteStateStop value)? stop,
+    TResult Function(RouletteStateRunning value)? running,
+    TResult Function(RouletteStateHit value)? hit,
+    required TResult orElse(),
+  }) {
+    if (hit != null) {
+      return hit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RouletteStateHit implements RouletteState {
+  const factory RouletteStateHit(
+      {required final String title,
+      required final double value,
+      required final int hitIndex}) = _$RouletteStateHitImpl;
+
+  @override
+  String get title;
+  @override
+  double get value;
+  int get hitIndex;
+
+  /// Create a copy of RouletteState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RouletteStateHitImplCopyWith<_$RouletteStateHitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

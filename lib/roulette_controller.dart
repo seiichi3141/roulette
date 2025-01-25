@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,11 @@ class RouletteState with _$RouletteState {
     required String title,
     required double value,
   }) = RouletteStateRunning;
+  const factory RouletteState.hit({
+    required String title,
+    required double value,
+    required int hitIndex,
+  }) = RouletteStateHit;
 }
 
 final rouletteControllerProvider =
@@ -47,6 +53,8 @@ class RouletteController extends StateNotifier<RouletteState> {
     );
 
     final itemLength = ref.read(itemLengthProvider);
+    final hitIndex = Random().nextInt(itemLength);
+    final hitOffset = 1.0 / itemLength * hitIndex;
 
     // 12秒間ルーレットを回転する
     final seconds = 12;
@@ -69,7 +77,7 @@ class RouletteController extends StateNotifier<RouletteState> {
       ),
       // 11秒間のアニメーション
       TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: 11.0).chain(
+        tween: Tween(begin: 0.0, end: 11.0 - hitOffset).chain(
           CurveTween(curve: Curves.easeOutQuint),
         ),
         weight: 11,
@@ -88,9 +96,10 @@ class RouletteController extends StateNotifier<RouletteState> {
       final newValue = valueListenable.value + tick;
       if (newValue >= 1) {
         timer.cancel();
-        state = RouletteState.stop(
+        state = RouletteState.hit(
           title: state.title,
           value: state.value,
+          hitIndex: hitIndex,
         );
         return;
       }
